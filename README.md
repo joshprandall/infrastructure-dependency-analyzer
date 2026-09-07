@@ -120,5 +120,3 @@ Use fictional or properly sanitized data for public demonstrations. Validate a r
 - `.github/workflows/test.yml`: Python test matrix.
 - `DEMO_GUIDE.md`: a short demonstration and explanation guide.
 - `GITHUB_SETUP.md`: publication steps.
-
-MIT License; see `LICENSE`.
