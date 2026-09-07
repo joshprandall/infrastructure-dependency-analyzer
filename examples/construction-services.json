@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "title": "Fictional construction operations \u2014 office and field dependency model",
+  "services": [
+    {
+      "id": "office-internet",
+      "name": "Office internet",
+      "kind": "infrastructure",
+      "owner": "IT / ISP",
+      "site": "Office",
+      "purpose": "Connectivity to hosted services and remote access.",
+      "rto_hours": 4,
+      "depends_on": []
+    },
+    {
+      "id": "office-firewall",
+      "name": "Office firewall",
+      "kind": "infrastructure",
+      "owner": "IT / Network partner",
+      "site": "Office",
+      "purpose": "Office perimeter and remote access termination.",
+      "rto_hours": 2,
+      "depends_on": [
+        "office-internet"
+      ]
+    },
+    {
+      "id": "core-network",
+      "name": "Core network",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Office",
+      "purpose": "Internal connectivity between office systems.",
+      "rto_hours": 2,
+      "depends_on": []
+    },
+    {
+      "id": "dns",
+      "name": "DNS service",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Office",
+      "purpose": "Name resolution for the declared internal applications.",
+      "rto_hours": 2,
+      "depends_on": [
+        "core-network"
+      ]
+    },
+    {
+      "id": "identity",
+      "name": "Directory / identity",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Office",
+      "purpose": "Authentication for the declared business applications.",
+      "rto_hours": 2,
+      "depends_on": [
+        "dns"
+      ]
+    },
+    {
+      "id": "erp-db",
+      "name": "ERP database",
+      "kind": "application",
+      "owner": "IT / ERP support",
+      "site": "Office",
+      "purpose": "Transactional data for the fictional construction ERP.",
+      "rto_hours": 8,
+      "depends_on": [
+        "core-network"
+      ]
+    },
+    {
+      "id": "erp-app",
+      "name": "Construction ERP",
+      "kind": "application",
+      "owner": "IT / ERP support",
+      "site": "Office",
+      "purpose": "Job cost and accounting application service.",
+      "rto_hours": 4,
+      "depends_on": [
+        "erp-db",
+        "identity"
+      ]
+    },
+    {
+      "id": "files",
+      "name": "Project document storage",
+      "kind": "application",
+      "owner": "IT",
+      "site": "Office",
+      "purpose": "Plans, estimates, and project documentation.",
+      "rto_hours": 4,
+      "depends_on": [
+        "identity",
+        "core-network"
+      ]
+    },
+    {
+      "id": "m365-access",
+      "name": "Office Microsoft 365 access",
+      "kind": "application",
+      "owner": "IT",
+      "site": "Office",
+      "purpose": "Office access path to collaboration services; not the cloud tenant itself.",
+      "rto_hours": 4,
+      "depends_on": [
+        "office-firewall"
+      ]
+    },
+    {
+      "id": "field-uplink",
+      "name": "Field cellular uplink",
+      "kind": "infrastructure",
+      "owner": "IT / Cellular provider",
+      "site": "Jobsite",
+      "purpose": "Internet access for the fictional jobsite.",
+      "rto_hours": 4,
+      "depends_on": []
+    },
+    {
+      "id": "field-vpn",
+      "name": "Field-to-office VPN",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Jobsite / Office",
+      "purpose": "Access path to the declared office-hosted applications.",
+      "rto_hours": 4,
+      "depends_on": [
+        "field-uplink",
+        "office-firewall"
+      ]
+    },
+    {
+      "id": "payroll",
+      "name": "Payroll processing",
+      "kind": "business",
+      "owner": "Finance",
+      "site": "Office",
+      "purpose": "Prepare payroll from job and time records.",
+      "rto_hours": 4,
+      "depends_on": [
+        "erp-app"
+      ]
+    },
+    {
+      "id": "estimating",
+      "name": "Estimating workflow",
+      "kind": "business",
+      "owner": "Estimating",
+      "site": "Office",
+      "purpose": "Access working estimates and project plans.",
+      "rto_hours": 8,
+      "depends_on": [
+        "files"
+      ]
+    },
+    {
+      "id": "dispatch",
+      "name": "Field dispatch",
+      "kind": "business",
+      "owner": "Operations",
+      "site": "Jobsite / Office",
+      "purpose": "Coordinate job and equipment assignments.",
+      "rto_hours": 4,
+      "depends_on": [
+        "erp-app",
+        "field-vpn"
+      ]
+    },
+    {
+      "id": "timecards",
+      "name": "Field time entry",
+      "kind": "business",
+      "owner": "Field operations",
+      "site": "Jobsite",
+      "purpose": "Submit crew hours to the declared ERP workflow.",
+      "rto_hours": 8,
+      "depends_on": [
+        "erp-app",
+        "field-vpn"
+      ]
+    },
+    {
+      "id": "collaboration",
+      "name": "Office project coordination",
+      "kind": "business",
+      "owner": "",
+      "site": "Office",
+      "purpose": "Coordinate project information using office collaboration access.",
+      "rto_hours": 8,
+      "depends_on": [
+        "m365-access"
+      ]
+    }
+  ]
+}

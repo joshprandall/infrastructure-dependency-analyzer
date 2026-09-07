@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "title": "Fictional circular recovery prerequisite example",
+  "services": [
+    {
+      "id": "auth",
+      "name": "Authentication",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Lab",
+      "purpose": "Example mutual prerequisite.",
+      "rto_hours": 2,
+      "depends_on": [
+        "dns"
+      ]
+    },
+    {
+      "id": "dns",
+      "name": "DNS",
+      "kind": "infrastructure",
+      "owner": "IT",
+      "site": "Lab",
+      "purpose": "Example mutual prerequisite.",
+      "rto_hours": 2,
+      "depends_on": [
+        "auth"
+      ]
+    },
+    {
+      "id": "app",
+      "name": "Application",
+      "kind": "application",
+      "owner": "IT",
+      "site": "Lab",
+      "purpose": "Consumer blocked by the circular prerequisite.",
+      "rto_hours": 4,
+      "depends_on": [
+        "auth"
+      ]
+    }
+  ]
+}
