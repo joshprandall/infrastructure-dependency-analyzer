@@ -119,4 +119,3 @@ Use fictional or properly sanitized data for public demonstrations. Validate a r
 - `tests/`: standard-library test suite.
 - `.github/workflows/test.yml`: Python test matrix.
 - `DEMO_GUIDE.md`: a short demonstration and explanation guide.
-- `GITHUB_SETUP.md`: publication steps.
